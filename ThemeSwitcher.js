@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './ThemeSwitcher.css';
 
 const ThemeSwitcher = () => {
-  const [theme, setTheme] = useState('light');
+  const defaultTheme = 'dark';
+  const [theme, setTheme] = useState(defaultTheme);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || defaultTheme;
     setTheme(savedTheme);
     document.documentElement.setAttribute('data-bs-theme', savedTheme);
   }, []);
