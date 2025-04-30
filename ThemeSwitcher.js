@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './ThemeSwitcher.css';
 
-const ThemeSwitcher = () => {
-  const defaultTheme = 'dark';
+const ThemeSwitcher = ({user_id=null, app_name=null}) => {
+  const defaultTheme = 'light';
   const [theme, setTheme] = useState(defaultTheme);
 
+  const localStorageKey = (app_name?app_name+"_":"") +  (user_id ? 'user_'+user_id+'_theme' : 'theme');
+
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || defaultTheme;
+    const savedTheme = localStorage.getItem(localStorageKey) || defaultTheme;
     setTheme(savedTheme);
     document.documentElement.setAttribute('data-bs-theme', savedTheme);
   }, []);
@@ -15,7 +17,7 @@ const ThemeSwitcher = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     document.documentElement.setAttribute('data-bs-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    localStorage.setItem(localStorageKey, newTheme);
   };
 
   return ( 
